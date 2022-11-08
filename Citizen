@@ -1,0 +1,95 @@
+public class Citizen {
+	
+	private String Name;
+	private String Ic;
+	private String State;
+	private int Age;
+	private String Category;
+	private String StatusD1;
+	private String StatusD2;
+	private String Cert;
+	
+	public Citizen(String name, String ic, String state, int age, String category, String statusD1, String statusD2,
+			String cert)
+	{
+		Name = name;
+		Ic = ic;
+		State = state;
+		Age = age;
+		Category = category;
+		StatusD1 = statusD1;
+		StatusD2 = statusD2;
+		Cert = cert;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getIc() {
+		return Ic;
+	}
+
+	public void setIc(String ic) {
+		Ic = ic;
+	}
+
+	public String getState() {
+		return State;
+	}
+
+	public void setState(String state) {
+		State = state;
+	}
+
+	public int getAge() {
+		return Age;
+	}
+
+	public void setAge(int age) {
+		Age = age;
+	}
+
+	public String getCategory() {
+		return Category;
+	}
+
+	public void setCategory(String category) {
+		Category = category;
+	}
+
+	public String getStatusD1() {
+		return StatusD1;
+	}
+
+	public void setStatusD1(String statusD1) {
+		StatusD1 = statusD1;
+	}
+
+	public String getStatusD2() {
+		return StatusD2;
+	}
+
+	public void setStatusD2(String statusD2) {
+		StatusD2 = statusD2;
+	}
+
+	public String getCert() {
+		return Cert;
+	}
+
+	public void setCert(String cert) {
+		Cert = cert;
+	}
+
+	@Override
+	public String toString() {
+		return "\n\n----VACCINE CERTIFICATE----\n\nName= " + Name + "\nIc= " + Ic + "\nState= " + State + "\nAge= " + Age + "\nCategory= " + Category
+				+ "\nFirst Dose Status= " + StatusD1 + "\nSecond Dose Status= " + StatusD2 + "\nCertification= " + Cert + "\n\n---------------------------";
+	}
+
+}
