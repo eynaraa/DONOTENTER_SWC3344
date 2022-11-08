@@ -1,0 +1,372 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class MainCitizen {
+	
+	public static void main (String[] args) 
+	{
+		try
+		{
+			LinkedList<Citizen> citizenlist = new LinkedList<>();
+			Stack<Citizen> stCenter1 = new Stack<>();
+			LinkedList<Citizen> notcomplete1 = new LinkedList<>();
+	        Stack<Citizen> stCenter2 = new Stack<>();
+	        LinkedList<Citizen> notcomplete2 = new LinkedList<>();
+	        Stack<Citizen> stCenter3 = new Stack<>();
+	        LinkedList<Citizen> notcomplete3 = new LinkedList<>();
+	        Stack<Citizen> temp1 = new Stack<>();
+	        Stack<Citizen> temp2 = new Stack<>();
+	        Stack<Citizen> temp3 = new Stack<>();
+			Queue<Citizen> qCenter1 = new LinkedList<>();
+			Queue<Citizen> qCenter2 = new LinkedList<>();
+			Queue<Citizen> qCenter3 = new LinkedList<>();
+			LinkedList<Citizen> CompletedList = new LinkedList<>();
+			LinkedList<Citizen> firstDose = new LinkedList<>();
+			
+			BufferedReader in = new BufferedReader( new FileReader("Citizen.txt"));
+			Citizen Cit;
+			String indata = null;
+			
+			while((indata = in.readLine()) != null) 
+			{
+				StringTokenizer st = new StringTokenizer(indata, ";");
+				String Name = st.nextToken();
+				String Ic = st.nextToken();
+				String State = st.nextToken();
+				int Age = Integer.parseInt(st.nextToken());
+				String Category = st.nextToken();
+				String StatusD1 = st.nextToken();
+				String StatusD2 = st.nextToken();
+				String Cert = st.nextToken();
+				
+				Cit = new Citizen(Name, Ic, State, Age, Category, StatusD1, StatusD2, Cert);
+				citizenlist.add(Cit);
+				
+			}
+			in.close();
+			
+			int menu = 0;
+	        do 
+	        {
+	        	//instruction
+	        	menu = Integer.parseInt(JOptionPane.showInputDialog("Please choose the following menu " + "\n Menu 1 - add new citizen" + "\n Menu 2 - remove citizen" + "\n Menu 3 - Citizen Category" + "\n Menu 4 - Proceed First and Second Dose" + "\n Menu 5 - Display First Dose Recipient" + "\n Menu 6 - Display Completed Dose Recipient" + "\n Menu 7 - Exit"));
+	        	
+	        	//add new citizen
+	        	if (menu == 1) 
+	        	{
+	        		
+	        		//ask user to enter new data for new citizen
+	        		String Name = JOptionPane.showInputDialog("Enter citizen name ");
+	        		String Ic = JOptionPane.showInputDialog("Enter citizen ic ");
+	        		String State = JOptionPane.showInputDialog("Enter citizen state ");
+	        		int Age = Integer.parseInt(JOptionPane.showInputDialog("Enter citizen age "));
+	        		String Category = JOptionPane.showInputDialog("Enter citizen category ");
+	        		String StatusD1 = JOptionPane.showInputDialog("Enter citizen first dose status \n**Skip this form** ");
+	        		String StatusD2 = JOptionPane.showInputDialog("Enter second dose status \n**Skip this form** ");
+	        		String Cert = JOptionPane.showInputDialog("Certificate vaccine \n**Skip this form** ");
+	        		
+	        		Cit = new Citizen(Name, Ic, State, Age, Category, StatusD1, StatusD2, Cert);
+	        		
+	        		citizenlist.addFirst(Cit);
+	        		
+	        	}
+	        	
+	        	//Remove the citizen requested by user
+	            else if (menu == 2)
+	            {
+
+	            	String citizenIc = JOptionPane.showInputDialog("Enter citizen ic ");
+	                for (int i = 0; i <citizenlist.size(); i++) 
+	                {
+
+	                	Cit = citizenlist.get(i);
+	                    if(Cit.getIc().equalsIgnoreCase(citizenIc))
+	                    {
+
+	                        citizenlist.remove(Cit);
+	                    }
+
+	                }    
+	               
+	            } else if (menu == 3) {
+	            	
+	            	int submenu = Integer.parseInt(JOptionPane.showInputDialog("1. Category for age 18 until 30 \n2. Category for age 30 until 49 \n3. Category for age 50 years above"));
+	            	
+	            	//divide the citizen into three categories of age
+	    	        while(!citizenlist.isEmpty()) {
+	    	        	
+	    	        	Cit = citizenlist.removeLast();
+	    	        	
+	    	        	if(Cit.getAge() >= 18 && Cit.getAge() <= 30) {
+	    	        		
+	    	        		stCenter1.push(Cit);
+	    	        		temp1.push(Cit);
+	    	        	}
+	    	        	else if(Cit.getAge() >= 31 && Cit.getAge() <= 49) {
+	    	        		
+	    	        		stCenter2.push(Cit);
+	    	        		temp2.push(Cit);
+	    	        		
+	    	        	}
+	    	        	else if(Cit.getAge() >= 50) {
+	    	        		
+	    	        		stCenter3.push(Cit);
+	    	        		temp3.push(Cit);
+	    	        		
+	    	        	}
+	    	        	
+	    	        }
+	    	        
+	    	        if(submenu == 1) {
+	    	        	
+	    	        	System.out.println(stCenter1.toString());
+	    	      
+	    	        } else if (submenu == 2) {
+	    	        	
+	    	        	System.out.println(stCenter2.toString());
+	    	        	
+	    	        } else if (submenu == 3) {
+	    	        	
+	    	        	System.out.println(stCenter3.toString());
+	    	        	
+	    	        } 
+	            } else if (menu == 4){
+	            	
+	            	//divide the citizen into three categories of age
+			        while(!citizenlist.isEmpty()) {
+			        	
+			        	Cit = citizenlist.removeLast();
+			        	
+			        	if(Cit.getAge() >= 18 && Cit.getAge() <= 30) {
+			        		
+			        		stCenter1.push(Cit);
+			        		temp1.push(Cit);
+			        	}
+			        	else if(Cit.getAge() >= 31 && Cit.getAge() <= 49) {
+			        		
+			        		stCenter2.push(Cit);
+			        		temp2.push(Cit);
+			        		
+			        	}
+			        	else if(Cit.getAge() >= 50) {
+			        		
+			        		stCenter3.push(Cit);
+			        		temp3.push(Cit);
+			        		
+			        	}
+			        	
+			        }
+			   
+			        
+			        JOptionPane.showMessageDialog(null, "First Dose Update \n1. Citizen aged 50 years old above will be proceed first dose \n2. Followed by the citizen aged between 31 and 49 \n3. Followed by the citizens aged between 18 and 30");
+			        JOptionPane.showMessageDialog(null, "This is for 50 years old and above category");
+			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for the first dose");
+			        
+			        int button = JOptionPane.YES_NO_OPTION;
+			        
+			        //first dose for citizen aged 50 years old and above 
+			        while(!stCenter3.isEmpty())
+			        {
+			        	
+			        	
+			        	if(JOptionPane.showConfirmDialog(null, stCenter3.peek().getName() + "\n" + stCenter3.peek().getIc() + "\n\nComplete first dose?", "First Dose Update", button) == JOptionPane.YES_OPTION)
+			        	{
+			        		Cit = stCenter3.pop();
+			        		temp3.pop();
+			        		Cit.setStatusD1("Complete");
+			        		qCenter3.add(Cit);
+			        		
+			        		
+			        		
+			        	}else {
+			        	
+			        		Cit = stCenter3.pop();
+			        		temp3.pop();
+			        		Cit.setStatusD1("Not Complete");
+			        		notcomplete3.add(Cit);
+			        	}
+			        	
+			        }
+			        
+			        JOptionPane.showMessageDialog(null, "This is for age 31 and 49 category");
+			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for the first dose");
+			        
+			        //first dose for citizen aged between 31 and 49
+			        while(!stCenter2.isEmpty())
+			        {
+			        	
+			        	if(JOptionPane.showConfirmDialog(null, stCenter2.peek().getName() + "\n" + stCenter2.peek().getIc() + "\n\nComplete first dose?", "First Dose Update", button) == JOptionPane.YES_OPTION)
+			        	{
+			        		Cit = stCenter2.pop();
+			        		temp2.pop();
+			        		Cit.setStatusD1("Complete");
+			        		qCenter2.add(Cit);
+			        		
+			        		
+			        		
+			        	}else {
+			        	
+			        		Cit = stCenter2.pop();
+			        		temp2.pop();
+			        		Cit.setStatusD1("Not Complete");
+			        		notcomplete2.add(Cit);
+			        		
+			        		
+			        	}
+			        	
+			        }
+			        
+			        JOptionPane.showMessageDialog(null, "This is for age between 18 and 30 category");
+			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for the first dose");
+			        
+			        
+			        //first dose for citizen aged between 18 and 30
+			        while(!stCenter1.isEmpty())
+			        {
+			        	
+			        	
+			        	if(JOptionPane.showConfirmDialog(null, stCenter1.peek().getName() + "\n" + stCenter1.peek().getIc() + "\n\nComplete first dose?", "First Dose Update", button) == JOptionPane.YES_OPTION)
+			        	{
+			        		Cit = stCenter1.pop();
+			        		temp1.pop();
+			        		Cit.setStatusD1("Complete");
+			        		qCenter1.add(Cit);
+			        		
+			        		
+			        		
+			        	}else {
+			        	
+			        		Cit = stCenter1.pop();
+			        		temp1.pop();
+			        		Cit.setStatusD1("Not Complete");
+			        		notcomplete1.add(Cit);
+			        		
+			        		
+			        	}
+			        	
+			        }
+			        
+			        //second dose
+			        JOptionPane.showMessageDialog(null, "Second Dose Update \n1. Citizen aged 50 years old above will be proceed second dose \n2. Followed by the citizen aged between 31 and 49 \n3. Followed by the citizens aged between 18 and 30");
+			        JOptionPane.showMessageDialog(null, "This is for 50 years old and above category");
+			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for the second dose");
+			        
+			     
+			        //Second dose for citizen aged 50 years old and above 
+			        while(!qCenter3.isEmpty())
+			        {
+			        	
+			        	
+			        	if(JOptionPane.showConfirmDialog(null, qCenter3.peek().getName() + "\n" + qCenter3.peek().getIc() + "\nFirst Dose: " + qCenter3.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button) == JOptionPane.YES_OPTION)
+			        	{
+			        		Cit = qCenter3.remove();
+			        		Cit.setStatusD2("Complete");
+			        		Cit.setCert("Complete");
+			        		CompletedList.add(Cit);
+			        		
+			        		
+			        	}else {
+			        	
+			        		Cit = qCenter3.remove();
+			        		Cit.setStatusD2("Not Complete");
+			        		Cit.setCert("Inomplete");
+			        		firstDose.add(Cit); //storage for those who not complete second dose but only first dose
+			        	}
+			        	
+			        }
+			        
+			        //Second dose for citizen aged 31 until 49 category
+			        JOptionPane.showMessageDialog(null, "This is for age 31 until 49 category");
+			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for second dose");
+			        
+			        //Second dose for citizen aged 31 until 49 category 
+			        while(!qCenter2.isEmpty())
+			        {
+			        	
+			        	
+			        	if(JOptionPane.showConfirmDialog(null, qCenter2.peek().getName() + "\n" + qCenter2.peek().getIc() + "\nFirst Dose: " + qCenter2.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button) == JOptionPane.YES_OPTION)
+			        	{
+			        		Cit = qCenter2.remove();
+			        		Cit.setStatusD2("Complete");
+			        		Cit.setCert("Complete");
+			        		CompletedList.add(Cit);
+			        		
+			        		
+			        	}else {
+			        	
+			        		Cit = qCenter2.remove();
+			        		Cit.setStatusD2("Not Complete");
+			        		Cit.setCert("Incomplete");
+			        		firstDose.add(Cit); //storage for those who not complete second dose but only first dose
+			        	}
+			        	
+			        }
+			        
+			        //Second dose for citizen aged 18 until 30 category 
+			        JOptionPane.showMessageDialog(null, "This is for age between 18 and 30 category");
+			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for second dose");
+			        
+			        
+			        //Second dose for citizen aged between 18 and 30
+			        while(!qCenter1.isEmpty())
+			        {
+			        	
+			        	
+			        	if(JOptionPane.showConfirmDialog(null, qCenter1.peek().getName() + "\n" + qCenter1.peek().getIc() + "\nFirst Dose: " + qCenter1.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button) == JOptionPane.YES_OPTION)
+			        	{
+			        		Cit = qCenter1.remove();
+			        		Cit.setStatusD2("Complete");
+			        		Cit.setCert("Complete");
+			        		CompletedList.add(Cit);
+			        		
+			        		
+			        		
+			        	}else {
+			        		
+			        	
+			        		Cit = qCenter1.remove();
+			        		Cit.setStatusD2("Not Complete");
+			        		Cit.setCert("Incomplete");
+			        		firstDose.add(Cit); //storage for those who not complete second dose but only first dose
+			        	}
+			        
+			        }
+			        
+			        
+			        
+	            } else if (menu == 5) {
+	            	
+	            	System.out.println();
+	            	System.out.println("----FIRST DOSE VACCINE CERTIFICATE----");
+	            	System.out.println(firstDose.toString());
+	            	System.out.println("--------------------------------------");
+
+	            	
+	            } else if (menu == 6) {    	
+	            	
+	            	System.out.println("----SECOND DOSE VACCINE CERTIFICATE----");
+	            	System.out.println(CompletedList.toString());
+	            	System.out.println("---------------------------------------");
+
+	            	
+	            } else if (menu == 7) {
+	            	
+	            	System.exit(0);
+	            }
+	        	
+	        }while(menu != 7);
+	        
+	        
+		}
+		catch (Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+	}
+
+}
