@@ -54,7 +54,7 @@ public class MainCitizen {
 	        do 
 	        {
 	        	//instruction
-	        	menu = Integer.parseInt(JOptionPane.showInputDialog("Please choose the following menu " + "\n Menu 1 - add new citizen" + "\n Menu 2 - remove citizen" + "\n Menu 3 - Citizen Category" + "\n Menu 4 - Proceed First and Second Dose" + "\n Menu 5 - Display First Dose Recipient" + "\n Menu 6 - Display Completed Dose Recipient" + "\n Menu 7 - Exit"));
+	        	menu = Integer.parseInt(JOptionPane.showInputDialog("Please choose the following menu " + "\n Menu 1 - add new citizen" + "\n Menu 2 - remove citizen" + "\n Menu 3 - Citizen Category" + "\n Menu 4 - Proceed First Dose" + "\n Menu 5 - Proceed Second Dose" + "\n Menu 6 - Display First Dose Recipient" + "\n Menu 7 - Display Completed Dose Recipient" + "\n Menu 8 - Exit"));
 	        	
 	        	//add new citizen
 	        	if (menu == 1) 
@@ -62,7 +62,7 @@ public class MainCitizen {
 	        		
 	        		//ask user to enter new data for new citizen
 	        		String Name = JOptionPane.showInputDialog("Enter citizen name ");
-	        		String Ic = JOptionPane.showInputDialog("Enter citizen ic ");
+	        		String Ic = JOptionPane.showInputDialog("Enter citizen ic\nex. 012345-10-7865");
 	        		String State = JOptionPane.showInputDialog("Enter citizen state ");
 	        		int Age = Integer.parseInt(JOptionPane.showInputDialog("Enter citizen age "));
 	        		String Category = JOptionPane.showInputDialog("Enter citizen category ");
@@ -251,18 +251,24 @@ public class MainCitizen {
 			        	
 			        }
 			        
-			        //second dose
+			        
+			        
+			        
+	            } else if (menu == 5) {
+	            	
+	            	//second dose
 			        JOptionPane.showMessageDialog(null, "Second Dose Update \n1. Citizen aged 50 years old above will be proceed second dose \n2. Followed by the citizen aged between 31 and 49 \n3. Followed by the citizens aged between 18 and 30");
 			        JOptionPane.showMessageDialog(null, "This is for 50 years old and above category");
 			        JOptionPane.showMessageDialog(null, "The name displayed can be ready for the second dose");
 			        
+			        int button2 = JOptionPane.YES_NO_OPTION;
 			     
 			        //Second dose for citizen aged 50 years old and above 
 			        while(!qCenter3.isEmpty())
 			        {
 			        	
 			        	
-			        	if(JOptionPane.showConfirmDialog(null, qCenter3.peek().getName() + "\n" + qCenter3.peek().getIc() + "\nFirst Dose: " + qCenter3.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button) == JOptionPane.YES_OPTION)
+			        	if(JOptionPane.showConfirmDialog(null, qCenter3.peek().getName() + "\n" + qCenter3.peek().getIc() + "\nFirst Dose: " + qCenter3.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button2) == JOptionPane.YES_OPTION)
 			        	{
 			        		Cit = qCenter3.remove();
 			        		Cit.setStatusD2("Complete");
@@ -274,7 +280,7 @@ public class MainCitizen {
 			        	
 			        		Cit = qCenter3.remove();
 			        		Cit.setStatusD2("Not Complete");
-			        		Cit.setCert("Inomplete");
+			        		Cit.setCert("Incomplete");
 			        		firstDose.add(Cit); //storage for those who not complete second dose but only first dose
 			        	}
 			        	
@@ -289,7 +295,7 @@ public class MainCitizen {
 			        {
 			        	
 			        	
-			        	if(JOptionPane.showConfirmDialog(null, qCenter2.peek().getName() + "\n" + qCenter2.peek().getIc() + "\nFirst Dose: " + qCenter2.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button) == JOptionPane.YES_OPTION)
+			        	if(JOptionPane.showConfirmDialog(null, qCenter2.peek().getName() + "\n" + qCenter2.peek().getIc() + "\nFirst Dose: " + qCenter2.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button2) == JOptionPane.YES_OPTION)
 			        	{
 			        		Cit = qCenter2.remove();
 			        		Cit.setStatusD2("Complete");
@@ -317,7 +323,8 @@ public class MainCitizen {
 			        {
 			        	
 			        	
-			        	if(JOptionPane.showConfirmDialog(null, qCenter1.peek().getName() + "\n" + qCenter1.peek().getIc() + "\nFirst Dose: " + qCenter1.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button) == JOptionPane.YES_OPTION)
+			        	if(JOptionPane.showConfirmDialog(null, qCenter1.peek().getName() + "\n" + qCenter1.peek().getIc() + "\nFirst Dose: " + qCenter1.peek().getStatusD1() + "\n\nComplete second dose?", "Second Dose Update", button2
+			        			) == JOptionPane.YES_OPTION)
 			        	{
 			        		Cit = qCenter1.remove();
 			        		Cit.setStatusD2("Complete");
@@ -337,31 +344,32 @@ public class MainCitizen {
 			        
 			        }
 			        
-			        
-			        
-	            } else if (menu == 5) {
-	            	
-	            	System.out.println();
-	            	System.out.println("----FIRST DOSE VACCINE CERTIFICATE----");
-	            	System.out.println(firstDose.toString());
-	            	System.out.println("--------------------------------------");
 
 	            	
 	            } else if (menu == 6) {    	
 	            	
-	            	System.out.println("----SECOND DOSE VACCINE CERTIFICATE----");
-	            	System.out.println(CompletedList.toString());
+	            	System.out.println("----FIRST DOSE VACCINE CERTIFICATE----");
+	            	System.out.println(firstDose.toString());
 	            	System.out.println("---------------------------------------");
 
 	            	
+	            	
 	            } else if (menu == 7) {
+	            	
+	            	System.out.println("----SECOND DOSE VACCINE CERTIFICATE----");
+	            	System.out.println(CompletedList.toString());
+	            	System.out.println("---------------------------------------");
+	            	
+	            } else if(menu == 8) {
 	            	
 	            	System.exit(0);
 	            }
 	        	
-	        }while(menu != 7);
+	        }while(menu != 8);
 	        
 	        
+	       
+	      
 		}
 		catch (Exception ex)
 		{
